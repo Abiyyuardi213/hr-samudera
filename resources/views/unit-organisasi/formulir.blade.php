@@ -1,0 +1,16 @@
+<div class="modal fade" id="modalFormulirUnit" tabindex="-1" role="dialog" aria-labelledby="judulFormulirUnit" aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document"><div class="modal-content">
+    <div class="modal-header bg-primary"><h2 class="modal-title h5" id="judulFormulirUnit">{{ $unit ? 'Ubah' : 'Tambah' }} Unit Organisasi</h2><button type="button" class="close text-white" data-dismiss="modal" aria-label="Tutup"><span aria-hidden="true">&times;</span></button></div>
+    <form method="POST" action="{{ $unit ? route('unit-organisasi.perbarui', $unit) : route('unit-organisasi.simpan') }}">
+        @csrf
+        @if ($unit) @method('PUT') @endif
+        <div class="modal-body">
+            <div class="form-group"><label for="nama">Nama unit</label><input id="nama" name="nama" class="form-control @error('nama') is-invalid @enderror" value="{{ old('nama', $unit?->nama) }}" maxlength="255" placeholder="Contoh: Direktorat SDM" required>@error('nama')<span class="invalid-feedback">{{ $message }}</span>@enderror</div>
+            <div class="form-group"><label for="jenis_unit">Jenis unit</label><select id="jenis_unit" name="jenis_unit" class="form-control @error('jenis_unit') is-invalid @enderror" required><option value="">Pilih jenis unit</option>@foreach ($jenisUnit as $kodeJenis => $namaJenis)<option value="{{ $kodeJenis }}" @selected(old('jenis_unit', $unit?->jenis_unit) === $kodeJenis)>{{ $namaJenis }}</option>@endforeach</select>@error('jenis_unit')<span class="invalid-feedback">{{ $message }}</span>@enderror</div>
+            <div class="form-group"><label for="induk_id">Induk unit (opsional)</label><select id="induk_id" name="induk_id" class="form-control @error('induk_id') is-invalid @enderror"><option value="">Tanpa induk — tingkat teratas</option>@foreach ($daftarInduk as $induk)<option value="{{ $induk->id }}" @selected(old('induk_id', $unit?->induk_id) === $induk->id)>{{ $induk->nama }} ({{ $jenisUnit[$induk->jenis_unit] }})</option>@endforeach</select><small class="text-muted">Kosongkan untuk unit teratas. Diri sendiri dan unit turunan tidak dapat menjadi induk.</small>@error('induk_id')<span class="invalid-feedback">{{ $message }}</span>@enderror</div>
+            <div class="form-group"><label for="deskripsi">Deskripsi (opsional)</label><textarea id="deskripsi" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3" maxlength="5000">{{ old('deskripsi', $unit?->deskripsi) }}</textarea>@error('deskripsi')<span class="invalid-feedback">{{ $message }}</span>@enderror</div>
+            <div class="form-group mb-0"><label for="status">Status</label><select id="status" name="status" class="form-control @error('status') is-invalid @enderror" required><option value="1" @selected((string) old('status', $unit ? (int) $unit->status : 1) === '1')>Aktif</option><option value="0" @selected((string) old('status', $unit ? (int) $unit->status : 1) === '0')>Nonaktif</option></select>@error('status')<span class="invalid-feedback">{{ $message }}</span>@enderror</div>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Batal</button><button type="submit" class="btn btn-primary"><i class="fas fa-save mr-1" aria-hidden="true"></i>Simpan</button></div>
+    </form>
+</div></div></div>

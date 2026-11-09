@@ -1,0 +1,22 @@
+@extends('layouts.app')
+@section('judul', 'Laporan HR')
+@section('kelas-judul', 'font-weight-bold')
+@section('keterangan', 'Rekap jadwal, kehadiran, cuti/izin/sakit, dan pengajuan lembur yang disetujui.')
+@push('gaya')<style>@media print { .main-header, .main-footer, .content-header .breadcrumb, .alat-laporan, .alert { display:none!important; } .content-wrapper { margin:0!important; } .wadah-utama { max-width:100%!important; } .table-responsive { overflow:visible; } .table { font-size:10px; } @page { size:landscape; margin:10mm; } }</style>@endpush
+@section('isi')
+<div class="card card-outline card-primary alat-laporan"><div class="card-body">
+<form method="GET" class="row align-items-end"><div class="col-md-3 form-group"><label for="tanggal_mulai">Tanggal mulai</label><input type="date" id="tanggal_mulai" name="tanggal_mulai" value="{{ $awal }}" class="form-control" required></div><div class="col-md-3 form-group"><label for="tanggal_selesai">Tanggal selesai</label><input type="date" id="tanggal_selesai" name="tanggal_selesai" value="{{ $akhir }}" class="form-control" required></div><div class="col-md-6 form-group">@include('layouts.komponen.pilihan-pegawai', ['identitas' => 'filterPegawai'])</div>
+<div class="col-md-6 form-group"><label for="kantor_id">Kantor saat ini</label><select id="kantor_id" name="kantor_id" class="form-control pilihan-cari"><option value="">Semua kantor</option>@foreach($daftarKantor as $kantor)<option value="{{ $kantor->id }}" @selected(request('kantor_id') === $kantor->id)>{{ $kantor->nama_kantor }}</option>@endforeach</select></div><div class="col-md-6 form-group"><button class="btn btn-primary">Tampilkan</button> <button type="submit" name="ekspor" value="csv" class="btn btn-success">Ekspor CSV</button> <button type="button" class="btn btn-default" id="cetakLaporan">Cetak</button></div></form>
+</div></div>
+<div class="row">@foreach(['hari_kerja' => ['Hari kerja', 'bg-info'], 'hadir' => ['Hadir', 'bg-success'], 'tanpa_keterangan' => ['Tanpa keterangan', 'bg-danger'], 'lembur' => ['Lembur disetujui (menit)', 'bg-warning']] as $kolom => [$label, $warna])<div class="col-md-3 col-6"><div class="small-box {{ $warna }}"><div class="inner"><h3>{{ $rekap->sum($kolom) }}</h3><p>{{ $label }}</p></div></div></div>@endforeach</div>
+<div class="card"><div class="card-header"><h2 class="card-title font-weight-bold">Rekap {{ \Carbon\Carbon::parse($awal)->format('d/m/Y') }} — {{ \Carbon\Carbon::parse($akhir)->format('d/m/Y') }}</h2></div><div class="card-body">
+<p class="text-muted text-sm">Hari dihitung dari jadwal yang tersedia. Tanpa keterangan hanya dihitung setelah shift berakhir tanpa absensi atau pengajuan yang disetujui. Pengajuan menunggu belum dianggap izin. Hadir termasuk absensi yang belum pulang. Durasi kerja adalah selisih masuk–pulang, belum dikurangi istirahat; lembur merupakan durasi pengajuan disetujui, bukan upah/realisasi. Kantor dan saldo cuti merupakan data saat ini. Periode lembur mengikuti tanggal jadwal.</p>
+<div class="table-responsive"><table class="table table-bordered table-striped table-sm"><thead><tr><th>Pegawai / kantor saat ini</th><th>Hari kerja</th><th>Libur</th><th>Hadir</th><th>Belum pulang</th><th>Cuti</th><th>Izin</th><th>Sakit</th><th>Tanpa keterangan</th><th>Belum berakhir</th><th>Terlambat (mnt)</th><th>Pulang awal (mnt)</th><th>Kerja (mnt)</th><th>Lembur disetujui (mnt)</th><th>Saldo cuti saat ini</th></tr></thead><tbody>
+@forelse($rekap as $baris)<tr><td>{{ $baris['pegawai']->nama_lengkap }}<small class="d-block">{{ $baris['pegawai']->nip }} · {{ $baris['pegawai']->kantor->nama_kantor }}</small></td>@foreach(collect($baris)->except('pegawai') as $nilai)<td>{{ $nilai }}</td>@endforeach<td>{{ $baris['pegawai']->sisa_cuti }}</td></tr>
+@empty<tr><td colspan="15" class="text-center py-4">Tidak ada pegawai yang sesuai.</td></tr>@endforelse
+</tbody><tfoot><tr><th>Total</th>@foreach(['hari_kerja','libur','hadir','belum_pulang','cuti','izin','sakit','tanpa_keterangan','belum_berakhir','terlambat','pulang_awal','menit_kerja','lembur'] as $kolom)<th>{{ $rekap->sum($kolom) }}</th>@endforeach<th>—</th></tr></tfoot></table></div>
+<small class="text-muted">Dicetak oleh {{ auth()->user()->name }} · {{ now('Asia/Jakarta')->format('d/m/Y H:i') }} WIB</small>
+</div></div>
+@include('layouts.komponen.pilihan-cari')
+@endsection
+@push('skrip')<script>$('#cetakLaporan').on('click', function () { window.print(); });</script>@endpush

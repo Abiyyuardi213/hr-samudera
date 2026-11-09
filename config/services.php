@@ -2,6 +2,10 @@
 
 return [
 
+    'wilayah' => [
+        'url' => 'https://www.emsifa.com/api-wilayah-indonesia/v2',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Third Party Services
