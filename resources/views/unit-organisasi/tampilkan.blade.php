@@ -19,6 +19,6 @@
     <div class="card-body table-responsive"><table class="table table-bordered table-striped"><thead><tr><th>Nama Unit</th><th>Jenis</th><th>Status</th></tr></thead><tbody>
     @forelse ($daftarAnak as $anak)<tr><td><a href="{{ route('unit-organisasi.tampilkan', $anak) }}">{{ $anak->nama }}</a></td><td>{{ $jenisUnit[$anak->jenis_unit] }}</td><td>{{ $anak->status ? 'Aktif' : 'Nonaktif' }}</td></tr>@empty<tr><td colspan="3" class="text-center text-muted">Belum ada unit anak.</td></tr>@endforelse
     </tbody></table></div>
-    <div class="card-footer d-flex justify-content-between"><span>Halaman {{ $daftarAnak->currentPage() }} dari {{ $daftarAnak->lastPage() }}</span><div>@if ($daftarAnak->previousPageUrl())<a href="{{ $daftarAnak->previousPageUrl() }}" class="btn btn-default btn-sm">Sebelumnya</a>@endif @if ($daftarAnak->nextPageUrl())<a href="{{ $daftarAnak->nextPageUrl() }}" class="btn btn-default btn-sm">Berikutnya</a>@endif</div></div>
+    @include('layouts.komponen.paginasi', ['halaman' => $daftarAnak, 'satuan' => 'unit', 'labelNavigasi' => 'Navigasi halaman unit anak'])
 </div>
 @endsection

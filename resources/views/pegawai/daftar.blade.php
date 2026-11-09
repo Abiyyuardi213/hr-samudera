@@ -20,10 +20,7 @@
             @empty<tr><td colspan="8" class="text-center text-muted py-5">Belum ada pegawai yang sesuai.</td></tr>@endforelse</tbody>
         </table></div>
     </div>
-    <div class="card-footer d-flex justify-content-between align-items-center flex-wrap"><span class="text-muted text-sm">{{ $daftarPegawai->total() }} pegawai &middot; Halaman {{ $daftarPegawai->currentPage() }} dari {{ $daftarPegawai->lastPage() }}</span><nav aria-label="Navigasi halaman pegawai"><ul class="pagination pagination-sm mb-0">
-        <li class="page-item {{ $daftarPegawai->onFirstPage() ? 'disabled' : '' }}">@if ($daftarPegawai->previousPageUrl())<a class="page-link" href="{{ $daftarPegawai->previousPageUrl() }}">Sebelumnya</a>@else<span class="page-link">Sebelumnya</span>@endif</li>
-        <li class="page-item {{ $daftarPegawai->hasMorePages() ? '' : 'disabled' }}">@if ($daftarPegawai->nextPageUrl())<a class="page-link" href="{{ $daftarPegawai->nextPageUrl() }}">Berikutnya</a>@else<span class="page-link">Berikutnya</span>@endif</li>
-    </ul></nav></div>
+    @include('layouts.komponen.paginasi', ['halaman' => $daftarPegawai, 'satuan' => 'pegawai', 'labelNavigasi' => 'Navigasi halaman pegawai'])
 </div>
 @include('pegawai.formulir')
 <div class="modal fade" id="modalHapusPegawai" tabindex="-1" role="dialog" aria-labelledby="judulHapusPegawai" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content">

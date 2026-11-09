@@ -1,4 +1,4 @@
-    <nav class="main-header navbar navbar-expand-md navbar-dark navbar-navy shadow-sm" aria-label="Navigasi utama">
+    <nav class="main-header navbar navbar-expand-md navbar-light navbar-samudera shadow-sm" aria-label="Navigasi utama">
         <div class="container-fluid wadah-utama">
             <a href="{{ route('beranda') }}" class="navbar-brand d-flex align-items-center">
                 <img src="{{ asset('image/pt-samudera-indonesia.jpg') }}" alt="Logo PT. Samudera Indonesia" class="logo-perusahaan mr-3">
@@ -52,13 +52,13 @@
                 </ul>
                 @auth
                     <div class="nav-item dropdown ml-md-auto">
-                        <a href="#" class="nav-link text-white dropdown-toggle" id="menuPengguna" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a href="#" class="nav-link dropdown-toggle profil-navbar" id="menuPengguna" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Buka menu akun {{ auth()->user()->name }}" title="{{ auth()->user()->name }}">
                             @if (auth()->user()->foto_profil)
-                                <img src="{{ asset('storage/'.auth()->user()->foto_profil) }}" alt="" class="rounded-circle mr-1" width="28" height="28" style="object-fit: cover;">
+                                <img src="{{ asset('storage/'.auth()->user()->foto_profil) }}" alt="Foto profil" class="avatar-profil-navbar" width="36" height="36">
                             @else
-                                <i class="fas fa-user-circle mr-1" aria-hidden="true"></i>
+                                <span class="avatar-profil-navbar avatar-profil-kosong" aria-hidden="true"><i class="fas fa-user"></i></span>
                             @endif
-                            {{ auth()->user()->name }}
+                            <span class="nama-profil-navbar">{{ auth()->user()->name }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="menuPengguna">
                             <span class="dropdown-header">{{ auth()->user()->role?->nama }}</span>

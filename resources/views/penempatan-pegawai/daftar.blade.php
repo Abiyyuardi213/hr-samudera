@@ -36,10 +36,7 @@
             @empty<tr><td colspan="6" class="text-center text-muted py-5">Belum ada riwayat yang sesuai. Tambahkan pegawai untuk membuat penempatan awal.</td></tr>@endforelse</tbody>
         </table></div>
     </div>
-    <div class="card-footer d-flex justify-content-between align-items-center flex-wrap"><span class="text-muted text-sm">{{ $daftarRiwayat->total() }} catatan &middot; Halaman {{ $daftarRiwayat->currentPage() }} dari {{ $daftarRiwayat->lastPage() }}</span><nav aria-label="Halaman riwayat"><ul class="pagination pagination-sm mb-0">
-        <li class="page-item {{ $daftarRiwayat->onFirstPage() ? 'disabled' : '' }}">@if ($daftarRiwayat->previousPageUrl())<a class="page-link" href="{{ $daftarRiwayat->previousPageUrl() }}">Sebelumnya</a>@else<span class="page-link">Sebelumnya</span>@endif</li>
-        <li class="page-item {{ $daftarRiwayat->hasMorePages() ? '' : 'disabled' }}">@if ($daftarRiwayat->nextPageUrl())<a class="page-link" href="{{ $daftarRiwayat->nextPageUrl() }}">Berikutnya</a>@else<span class="page-link">Berikutnya</span>@endif</li>
-    </ul></nav></div>
+    @include('layouts.komponen.paginasi', ['halaman' => $daftarRiwayat, 'satuan' => 'catatan', 'labelNavigasi' => 'Halaman riwayat'])
 </div>
 <p class="text-muted text-sm">Riwayat disimpan sebagai catatan berurutan. Gunakan penempatan baru untuk mencatat perubahan berikutnya.</p>
 @include('penempatan-pegawai.formulir')

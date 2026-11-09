@@ -33,13 +33,7 @@
             </tbody>
         </table></div>
     </div>
-    <div class="card-footer d-flex justify-content-between align-items-center flex-wrap">
-        <span class="text-muted text-sm">{{ $daftarUnit->total() }} unit &middot; Halaman {{ $daftarUnit->currentPage() }} dari {{ $daftarUnit->lastPage() }}</span>
-        <nav aria-label="Navigasi halaman unit"><ul class="pagination pagination-sm mb-0">
-            <li class="page-item {{ $daftarUnit->onFirstPage() ? 'disabled' : '' }}">@if ($daftarUnit->previousPageUrl())<a class="page-link" href="{{ $daftarUnit->previousPageUrl() }}">Sebelumnya</a>@else<span class="page-link">Sebelumnya</span>@endif</li>
-            <li class="page-item {{ $daftarUnit->hasMorePages() ? '' : 'disabled' }}">@if ($daftarUnit->nextPageUrl())<a class="page-link" href="{{ $daftarUnit->nextPageUrl() }}">Berikutnya</a>@else<span class="page-link">Berikutnya</span>@endif</li>
-        </ul></nav>
-    </div>
+    @include('layouts.komponen.paginasi', ['halaman' => $daftarUnit, 'satuan' => 'unit', 'labelNavigasi' => 'Navigasi halaman unit'])
 </div>
 @include('unit-organisasi.formulir')
 <div class="modal fade" id="modalHapusUnit" tabindex="-1" role="dialog" aria-labelledby="judulHapusUnit" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content">

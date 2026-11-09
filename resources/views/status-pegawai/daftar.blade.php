@@ -22,12 +22,7 @@
             </tbody>
         </table></div>
     </div>
-    <div class="card-footer d-flex justify-content-between align-items-center flex-wrap"><span class="text-muted text-sm">{{ $daftarStatus->total() }} status &middot; Halaman {{ $daftarStatus->currentPage() }} dari {{ $daftarStatus->lastPage() }}</span>
-        <nav aria-label="Navigasi halaman status pegawai"><ul class="pagination pagination-sm mb-0">
-            <li class="page-item {{ $daftarStatus->onFirstPage() ? 'disabled' : '' }}">@if ($daftarStatus->previousPageUrl())<a class="page-link" href="{{ $daftarStatus->previousPageUrl() }}">Sebelumnya</a>@else<span class="page-link">Sebelumnya</span>@endif</li>
-            <li class="page-item {{ $daftarStatus->hasMorePages() ? '' : 'disabled' }}">@if ($daftarStatus->nextPageUrl())<a class="page-link" href="{{ $daftarStatus->nextPageUrl() }}">Berikutnya</a>@else<span class="page-link">Berikutnya</span>@endif</li>
-        </ul></nav>
-    </div>
+    @include('layouts.komponen.paginasi', ['halaman' => $daftarStatus, 'satuan' => 'status', 'labelNavigasi' => 'Navigasi halaman status pegawai'])
 </div>
 @include('status-pegawai.formulir')
 <div class="modal fade" id="modalHapusStatus" tabindex="-1" role="dialog" aria-labelledby="judulHapusStatus" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content">

@@ -13,7 +13,16 @@
         body { font-family: 'Source Sans Pro', sans-serif; }
         .wadah-utama { width: 100%; max-width: 1140px; margin-right: auto; margin-left: auto; padding-right: 15px; padding-left: 15px; }
         .navbar-brand { font-weight: 700; }
-        .nama-perusahaan { color: #f9b314; }
+        .navbar-samudera { background-color: #f9b314; }
+        .navbar-samudera .navbar-brand, .navbar-samudera .nama-perusahaan, .navbar-samudera .nav-link, .navbar-samudera .navbar-toggler { color: #001f3f; }
+        .navbar-samudera .navbar-brand:hover, .navbar-samudera .navbar-brand:focus, .navbar-samudera .nav-link:hover, .navbar-samudera .nav-link:focus, .navbar-samudera .nav-link.active, .navbar-samudera .show > .nav-link { color: #001f3f; }
+        .navbar-samudera .nav-link:hover, .navbar-samudera .nav-link:focus, .navbar-samudera .nav-link.active, .navbar-samudera .show > .nav-link { background-color: rgba(0, 31, 63, .09); border-radius: .25rem; }
+        .navbar-samudera .navbar-toggler { border-color: rgba(0, 31, 63, .35); }
+        .navbar-samudera .profil-navbar { display: flex; align-items: center; gap: .65rem; height: auto; padding: .35rem .65rem; font-weight: 600; }
+        .avatar-profil-navbar { width: 36px; height: 36px; border-radius: 50%; border: 2px solid rgba(0, 31, 63, .25); object-fit: cover; flex-shrink: 0; background-color: #f4f6f9; }
+        .avatar-profil-kosong { display: inline-flex; align-items: center; justify-content: center; font-size: 1rem; }
+        .nama-profil-navbar { display: inline-block; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .navbar-samudera .navbar-toggler-icon { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='%23001f3f' stroke-width='2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); }
         .logo-perusahaan { width: auto; height: 40px; max-width: 140px; object-fit: contain; }
         .navbar-brand small { display: block; font-size: .7rem; font-weight: 400; letter-spacing: .04em; }
         .content-wrapper > .content { padding-bottom: 32px; }
@@ -21,7 +30,8 @@
         .aksi form { margin: 0; }
         .table td, .table th { vertical-align: middle; }
         .deskripsi-role { white-space: pre-wrap; overflow-wrap: anywhere; }
-        .navbar .dropdown-item.active { background-color: #001f3f; }
+        .navbar-samudera .dropdown-item { color: #001f3f; }
+        .navbar-samudera .dropdown-item.active, .navbar-samudera .dropdown-item:active { background-color: #f9b314; color: #001f3f; }
         @media (max-width: 575.98px) { .navbar-brand { font-size: 1rem; } }
     </style>
     @stack('gaya')

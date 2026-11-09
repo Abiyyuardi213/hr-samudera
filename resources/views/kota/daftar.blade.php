@@ -39,13 +39,7 @@
                 </table>
             </div>
         </div>
-        <div class="card-footer d-flex align-items-center justify-content-between flex-wrap">
-            <span class="text-muted text-sm">{{ $daftarKota->total() }} hasil &middot; Halaman {{ $daftarKota->currentPage() }} dari {{ $daftarKota->lastPage() }}</span>
-            <nav aria-label="Navigasi halaman kota"><ul class="pagination pagination-sm mb-0">
-                <li class="page-item {{ $daftarKota->onFirstPage() ? 'disabled' : '' }}">@if ($daftarKota->previousPageUrl())<a class="page-link" href="{{ $daftarKota->previousPageUrl() }}">Sebelumnya</a>@else<span class="page-link">Sebelumnya</span>@endif</li>
-                <li class="page-item {{ $daftarKota->hasMorePages() ? '' : 'disabled' }}">@if ($daftarKota->nextPageUrl())<a class="page-link" href="{{ $daftarKota->nextPageUrl() }}">Berikutnya</a>@else<span class="page-link">Berikutnya</span>@endif</li>
-            </ul></nav>
-        </div>
+        @include('layouts.komponen.paginasi', ['halaman' => $daftarKota, 'satuan' => 'hasil', 'labelNavigasi' => 'Navigasi halaman kota'])
     </div>
     <p class="text-muted text-sm">Sumber data: <a href="https://www.emsifa.com/api-wilayah-indonesia/" target="_blank" rel="noopener noreferrer">API Wilayah Indonesia — Emsifa</a>. Data tersimpan lokal setelah sinkron berhasil.</p>
     <div class="modal fade" id="modalSinkron" tabindex="-1" role="dialog" aria-labelledby="judulSinkron" aria-hidden="true" data-backdrop="static" data-keyboard="false">

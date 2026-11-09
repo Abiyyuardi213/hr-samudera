@@ -19,7 +19,7 @@
     <div class="card-body table-responsive"><table class="table table-bordered table-striped"><thead><tr><th>Nama Jabatan</th><th>Status</th></tr></thead><tbody>
     @forelse ($daftarBawahan as $bawahan)<tr><td><a href="{{ route('jabatan.tampilkan', $bawahan) }}">{{ $bawahan->nama }}</a></td><td>{{ $bawahan->status ? 'Aktif' : 'Nonaktif' }}</td></tr>@empty<tr><td colspan="2" class="text-center text-muted">Belum ada jabatan bawahan.</td></tr>@endforelse
     </tbody></table></div>
-    <div class="card-footer d-flex justify-content-between"><span>Halaman {{ $daftarBawahan->currentPage() }} dari {{ $daftarBawahan->lastPage() }}</span><div>@if ($daftarBawahan->previousPageUrl())<a href="{{ $daftarBawahan->previousPageUrl() }}" class="btn btn-default btn-sm">Sebelumnya</a>@endif @if ($daftarBawahan->nextPageUrl())<a href="{{ $daftarBawahan->nextPageUrl() }}" class="btn btn-default btn-sm">Berikutnya</a>@endif</div></div>
+    @include('layouts.komponen.paginasi', ['halaman' => $daftarBawahan, 'satuan' => 'jabatan', 'labelNavigasi' => 'Navigasi halaman jabatan bawahan'])
 </div>
 @endsection
 

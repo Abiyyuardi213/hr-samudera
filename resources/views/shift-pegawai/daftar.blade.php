@@ -22,12 +22,7 @@
             </tbody>
         </table></div>
     </div>
-    <div class="card-footer d-flex justify-content-between align-items-center flex-wrap"><span class="text-muted text-sm">{{ $daftarShift->total() }} shift &middot; Halaman {{ $daftarShift->currentPage() }} dari {{ $daftarShift->lastPage() }}</span>
-        <nav aria-label="Navigasi halaman shift"><ul class="pagination pagination-sm mb-0">
-            <li class="page-item {{ $daftarShift->onFirstPage() ? 'disabled' : '' }}">@if ($daftarShift->previousPageUrl())<a class="page-link" href="{{ $daftarShift->previousPageUrl() }}">Sebelumnya</a>@else<span class="page-link">Sebelumnya</span>@endif</li>
-            <li class="page-item {{ $daftarShift->hasMorePages() ? '' : 'disabled' }}">@if ($daftarShift->nextPageUrl())<a class="page-link" href="{{ $daftarShift->nextPageUrl() }}">Berikutnya</a>@else<span class="page-link">Berikutnya</span>@endif</li>
-        </ul></nav>
-    </div>
+    @include('layouts.komponen.paginasi', ['halaman' => $daftarShift, 'satuan' => 'shift', 'labelNavigasi' => 'Navigasi halaman shift'])
 </div>
 @include('shift-pegawai.formulir')
 <div class="modal fade" id="modalHapusShift" tabindex="-1" role="dialog" aria-labelledby="judulHapusShift" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content">

@@ -39,19 +39,7 @@
             </table>
             </div>
         </div>
-        <div class="card-footer d-flex align-items-center justify-content-between flex-wrap">
-            <span class="text-muted text-sm">{{ $daftarRole->total() }} role &middot; Halaman {{ $daftarRole->currentPage() }} dari {{ $daftarRole->lastPage() }}</span>
-            <nav aria-label="Navigasi halaman role" class="mt-2 mt-sm-0">
-                <ul class="pagination pagination-sm mb-0">
-                    <li class="page-item {{ $daftarRole->onFirstPage() ? 'disabled' : '' }}">
-                        @if ($daftarRole->previousPageUrl())<a class="page-link" href="{{ $daftarRole->previousPageUrl() }}">Sebelumnya</a>@else<span class="page-link">Sebelumnya</span>@endif
-                    </li>
-                    <li class="page-item {{ $daftarRole->hasMorePages() ? '' : 'disabled' }}">
-                        @if ($daftarRole->nextPageUrl())<a class="page-link" href="{{ $daftarRole->nextPageUrl() }}">Berikutnya</a>@else<span class="page-link">Berikutnya</span>@endif
-                    </li>
-                </ul>
-            </nav>
-        </div>
+        @include('layouts.komponen.paginasi', ['halaman' => $daftarRole, 'satuan' => 'role', 'labelNavigasi' => 'Navigasi halaman role'])
     </div>
     <div class="modal fade" id="konfirmasiHapus" tabindex="-1" role="dialog" aria-labelledby="judulKonfirmasiHapus" aria-hidden="true">
         <div class="modal-dialog" role="document">
